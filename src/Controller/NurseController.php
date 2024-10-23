@@ -39,15 +39,16 @@ class NurseController extends AbstractController
 
 
 
-    #[Route('/name/{name}', name: 'findByName', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager, string $name)
+    #[Route('/name/{name}', name: 'findByName')]
+    public function index(EntityManagerInterface $entityManager, string $name): Response
     {
-        $nurse = $entityManager->getRepository(Nurse::class)->findOneBy(['name' => $name]);
+        $nurse = $entityManager->getRepository(Nurse::class)->findOneBy(['user' => $name]);
         if (!$nurse) {
             throw $this->createNotFoundException(
                 'No nurse found for name: ' . $name
             );
         }
+        return new Response('Nurse finded: '.$nurse->getName());
     }
 
 
