@@ -2,6 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Nurse;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
+use PhpParser\Node\Name;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,17 +16,18 @@ use Symfony\Component\Routing\Attribute\Route;
 
 
 #[Route('/NurseController', name: 'Controller')] //usamos el prefijo NurseController para agrupar las rutas bajo el mismo dominio
-class NurseController extends AbstractController {
+class NurseController extends AbstractController
+{
 
     //Declaramos el array como variable de clase encapsulada
-    private array $nurses = [
-        ["id" => 1, "nombre" => "Juan", "correo" => "juan@gmail.com", "password" => "1234"],
-        ["id" => 2, "nombre" => "Maria", "correo" => "Maria@gmail.com", "password" => "1234"],
-        ["id" => 3, "nombre" => "Pepa", "correo" => "Pepa@gmail.com", "password" => "1234"],
-        ["id" => 4, "nombre" => "Marc", "correo" => "Marc@gmail.com", "password" => "1234"]
-    ];
+    // private array $nurses = [
+    //     ["id" => 1, "nombre" => "Juan", "correo" => "juan@gmail.com", "password" => "1234"],
+    //     ["id" => 2, "nombre" => "Maria", "correo" => "Maria@gmail.com", "password" => "1234"],
+    //     ["id" => 3, "nombre" => "Pepa", "correo" => "Pepa@gmail.com", "password" => "1234"],
+    //     ["id" => 4, "nombre" => "Marc", "correo" => "Marc@gmail.com", "password" => "1234"]
+    // ];
 
-    
+
 
     #[Route('/nurse', name: 'app_nurse', methods: ['GET'])]
     public function getAll(): JsonResponse
@@ -34,23 +40,19 @@ class NurseController extends AbstractController {
 
 
     #[Route('/name/{name}', name: 'findByName', methods: ['GET'])]
-    public function index($name): JsonResponse
+    public function index(EntityManagerInterface $entityManager, string $name)
     {
-        $enfermerosFiltrados = [];
-        for ($i = 0; $i < count($this->nurses); $i++) {
-            if ($this->nurses[$i]['nombre'] === $name) {
-                $enfermerosFiltrados[] = $this->nurses[$i];
-            }
+        $nurse = $entityManager->getRepository(Nurse::class)->findOneBy(['name' => $name]);
+        if (!$nurse) {
+            throw $this->createNotFoundException(
+                'No nurse found for name: ' . $name
+            );
         }
-        if (empty($enfermerosFiltrados)) {
-            $enfermerosFiltrados = "No se ha encontrado el nombre";
-        }
-        return $this->json($enfermerosFiltrados);   
     }
 
 
 
-    #[Route('/login', name: 'app_login', methods:['POST'])]
+    #[Route('/login', name: 'app_login', methods: ['POST'])]
     public function login(Request $request): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
     {
         $gmail = $request->request->get('correo');
@@ -62,12 +64,10 @@ class NurseController extends AbstractController {
 
         foreach ($this->nurses as $user) {
             if ($user['correo'] === $gmail && $user['password'] === $password) {
-                return $this->json(true) ;
+                return $this->json(true);
             }
         }
         //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
         return $this->json(false);
     }
-
 }
-
