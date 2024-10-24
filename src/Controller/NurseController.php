@@ -7,34 +7,20 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use PhpParser\Node\Name;
+use App\Repository\NurseRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 
 
 #[Route('/NurseController', name: 'Controller')] //usamos el prefijo NurseController para agrupar las rutas bajo el mismo dominio
 class NurseController extends AbstractController
 {
-
-    //Declaramos el array como variable de clase encapsulada
-    // private array $nurses = [
-    //     ["id" => 1, "nombre" => "Juan", "correo" => "juan@gmail.com", "password" => "1234"],
-    //     ["id" => 2, "nombre" => "Maria", "correo" => "Maria@gmail.com", "password" => "1234"],
-    //     ["id" => 3, "nombre" => "Pepa", "correo" => "Pepa@gmail.com", "password" => "1234"],
-    //     ["id" => 4, "nombre" => "Marc", "correo" => "Marc@gmail.com", "password" => "1234"]
-    // ];
-
-
-
-    #[Route('/nurse', name: 'app_nurse', methods: ['GET'])]
-    public function getAll(): JsonResponse
-    {
-        
-    }
-
 
 
     #[Route('/name/{name}', name: 'findByName')]
@@ -45,12 +31,31 @@ class NurseController extends AbstractController
             return new Response('Nurse not found!');
         }
         return new Response('Nurse found: '.$nurse->getName());
+
+    #[Route('/nurse', name: 'getAll', methods: ['GET'])]
+    public function getAll(EntityManagerInterface $entityManager): JsonResponse
+    {
+        $nurseRepository = $entityManager->getRepository(Nurse::class);
+        $nurses = $nurseRepository->findAll();
+
+        // Convertir los objetos Nurse a un array de datos
+        $nursesArray = array_map(function($nurse) {
+            return [
+                'id' => $nurse->getId(),
+                'name' => $nurse->getName(),
+                'gmail' => $nurse->getGmail(),
+                // No incluimos la contraseña por razones de seguridad
+            ];
+        }, $nurses);
+
+        return $this->json($nursesArray, Response::HTTP_OK);
+
     }
 
 
+    #[Route('/login', name: 'app_login', methods:['POST'])]
+    public function login(Request $request, NurseRepository $nurseRepository): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
 
-    #[Route('/login', name: 'app_login', methods: ['POST'])]
-    public function login(Request $request): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
     {
         $gmail = $request->request->get('correo');
         $password = $request->request->get('password');
@@ -59,12 +64,18 @@ class NurseController extends AbstractController
             return $this->json(['Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
-        foreach ($this->nurses as $user) {
-            if ($user['correo'] === $gmail && $user['password'] === $password) {
-                return $this->json(true);
-            }
+
+      
+
+        $nurse = $nurseRepository->findOneBy(['gmail' => $gmail]);
+
+        if ($nurse && $nurse->getPassword() === $password) {
+            return $this->json(true);
+
         }
+        
         //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
         return $this->json(false);
     }
 }
+
