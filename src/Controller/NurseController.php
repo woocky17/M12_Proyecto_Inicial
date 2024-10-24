@@ -64,9 +64,6 @@ class NurseController extends AbstractController
             return $this->json(['Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
-
-      
-
         $nurse = $nurseRepository->findOneBy(['gmail' => $gmail]);
 
         if ($nurse && $nurse->getPassword() === $password) {
