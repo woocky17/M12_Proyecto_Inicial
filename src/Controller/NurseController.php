@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\ORM\EntityManagerInterface;
 
 
 
@@ -31,7 +30,8 @@ class NurseController extends AbstractController
             return new Response('Nurse not found!');
         }
         return new Response('Nurse found: '.$nurse->getName());
-
+    }
+    
     #[Route('/nurse', name: 'getAll', methods: ['GET'])]
     public function getAll(EntityManagerInterface $entityManager): JsonResponse
     {
