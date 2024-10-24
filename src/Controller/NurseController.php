@@ -32,9 +32,7 @@ class NurseController extends AbstractController
     #[Route('/nurse', name: 'app_nurse', methods: ['GET'])]
     public function getAll(): JsonResponse
     {
-        return new JsonResponse($this->nurses, Response::HTTP_OK);
-        //return $this->json($nurses);
-        //return new Response(json_encode($nurses), Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        
     }
 
 
@@ -42,13 +40,11 @@ class NurseController extends AbstractController
     #[Route('/name/{name}', name: 'findByName')]
     public function index(EntityManagerInterface $entityManager, string $name): Response
     {
-        $nurse = $entityManager->getRepository(Nurse::class)->findOneBy(['user' => $name]);
+        $nurse = $entityManager->getRepository(Nurse::class)->findOneBy(['name' => $name]);
         if (!$nurse) {
-            throw $this->createNotFoundException(
-                'No nurse found for name: ' . $name
-            );
+            return new Response('Nurse not found!');
         }
-        return new Response('Nurse finded: '.$nurse->getName());
+        return new Response('Nurse found: '.$nurse->getName());
     }
 
 
