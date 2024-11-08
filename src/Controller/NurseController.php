@@ -94,7 +94,7 @@ class NurseController extends AbstractController
 
         return $this->json('Nurse removed!', Response::HTTP_OK);
     }
-}
+
 
     #[Route('/create', name: 'app_crud_create', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
