@@ -75,13 +75,15 @@ class NurseController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_delete', methods: ['DELETE'])]
-    public function delete(Request $request, Nurse $nurse, EntityManagerInterface $entityManager): JsonResponse
+    public function delete(Request $request, Nurse $nurse = null, EntityManagerInterface $entityManager): JsonResponse
     {
-
+        if (!$nurse) {
+            return $this->json('Nurse not found', Response::HTTP_NOT_FOUND);
+        }
         $entityManager->remove($nurse);
         $entityManager->flush();
 
-        return $this->json('app_delete', Response::HTTP_OK);
+        return $this->json('Nurse removed!', Response::HTTP_OK);
     }
 }
 
