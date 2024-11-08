@@ -57,7 +57,7 @@ class NurseController extends AbstractController
     public function login(Request $request, NurseRepository $nurseRepository): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
 
     {
-        $gmail = $request->request->get('correo');
+        $gmail = $request->request->get('gmail');
         $password = $request->request->get('password');
 
         if (is_null($gmail) || is_null($password)) {
