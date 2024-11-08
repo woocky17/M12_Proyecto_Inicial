@@ -29,9 +29,9 @@ class NurseController extends AbstractController
         if (!$nurse) {
             return new Response('Nurse not found!');
         }
-        return new Response('Nurse found: '.$nurse->getName());
+        return new Response('Nurse found: ' . $nurse->getName());
     }
-    
+
     #[Route('/nurse', name: 'getAll', methods: ['GET'])]
     public function getAll(EntityManagerInterface $entityManager): JsonResponse
     {
@@ -39,7 +39,7 @@ class NurseController extends AbstractController
         $nurses = $nurseRepository->findAll();
 
         // Convertir los objetos Nurse a un array de datos
-        $nursesArray = array_map(function($nurse) {
+        $nursesArray = array_map(function ($nurse) {
             return [
                 'id' => $nurse->getId(),
                 'name' => $nurse->getName(),
@@ -53,9 +53,8 @@ class NurseController extends AbstractController
     }
 
 
-    #[Route('/login', name: 'app_login', methods:['POST'])]
+    #[Route('/login', name: 'app_login', methods: ['POST'])]
     public function login(Request $request, NurseRepository $nurseRepository): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
-
     {
         $gmail = $request->request->get('correo');
         $password = $request->request->get('password');
@@ -70,9 +69,19 @@ class NurseController extends AbstractController
             return $this->json(true);
 
         }
-        
+
         //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
         return $this->json(false);
+    }
+
+    #[Route('/{id}', name: 'app_delete', methods: ['DELETE'])]
+    public function delete(Request $request, Nurse $nurse, EntityManagerInterface $entityManager): JsonResponse
+    {
+
+        $entityManager->remove($nurse);
+        $entityManager->flush();
+
+        return $this->json('app_delete', Response::HTTP_OK);
     }
 }
 
