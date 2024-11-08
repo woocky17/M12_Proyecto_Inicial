@@ -67,12 +67,12 @@ class NurseController extends AbstractController
         $nurse = $nurseRepository->findOneBy(['gmail' => $gmail]);
 
         if ($nurse && $nurse->getPassword() === $password) {
-            return $this->json(true);
+            return $this->json(true,Response::HTTP_OK);
 
         }
         
         //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
-        return $this->json(false);
+        return $this->json(false,Response::HTTP_BAD_REQUEST);
     }
 }
 
