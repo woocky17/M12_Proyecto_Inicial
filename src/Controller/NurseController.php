@@ -30,9 +30,7 @@ class NurseController extends AbstractController
         if (!$nurse) {
             return $this->json('Nurse not found!', Response::HTTP_NOT_FOUND);
         }
-
         return $this->json('Nurse found: ' . $nurse->getName(), Response::HTTP_OK);
-
     }
 
 
@@ -85,6 +83,17 @@ class NurseController extends AbstractController
         ], Response::HTTP_OK);
     }
 
+    #[Route('/{id}', name: 'app_delete', methods: ['DELETE'])]
+    public function delete(Request $request, Nurse $nurse = null, EntityManagerInterface $entityManager): JsonResponse
+    {
+        if (!$nurse) {
+            return $this->json('Nurse not found', Response::HTTP_NOT_FOUND);
+        }
+        $entityManager->remove($nurse);
+        $entityManager->flush();
+
+        return $this->json('Nurse removed!', Response::HTTP_OK);
+    }
 }
 
     #[Route('/create', name: 'app_crud_create', methods: ['POST'])]
