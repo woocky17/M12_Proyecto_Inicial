@@ -30,7 +30,9 @@ class NurseController extends AbstractController
         if (!$nurse) {
             return $this->json('Nurse not found!', Response::HTTP_NOT_FOUND);
         }
+
         return $this->json('Nurse found: ' . $nurse->getName(), Response::HTTP_OK);
+
     }
 
 
@@ -56,7 +58,6 @@ class NurseController extends AbstractController
 
     #[Route('/login', name: 'app_login', methods: ['POST'])]
     public function login(Request $request, NurseRepository $nurseRepository): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
-
     {
         $gmail = $request->request->get('gmail');
         $password = $request->request->get('password');
@@ -74,6 +75,17 @@ class NurseController extends AbstractController
         //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
         return $this->json(false, Response::HTTP_BAD_REQUEST);
     }
+    #[Route('/{id}', name: 'findById', methods: ['GET'])]
+    public function show(Nurse $nurse): JsonResponse
+    {
+        return $this->json([
+            'Id' => $nurse->getId(),
+            'Name' => $nurse->getName(),
+            'Mail' => $nurse->getGmail(),
+        ], Response::HTTP_OK);
+    }
+
+}
 
     #[Route('/create', name: 'app_crud_create', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse

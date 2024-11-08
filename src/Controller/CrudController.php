@@ -9,12 +9,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/crud')]
 final class CrudController extends AbstractController
 {
-
 
     // #[Route('/new', name: 'app_crud_new', methods: ['POST'])]
     // public function new(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): Response
@@ -37,8 +37,16 @@ final class CrudController extends AbstractController
     //         $nurse->setGmail($gmail);
     //         $nurse->setPassword($password);
 
-    //         $entityManager->persist($nurse);
-    //         $entityManager->flush();
+
+    #[Route('/{id}', name: 'app_crud_show', methods: ['GET'])]
+    public function show(Nurse $nurse): JsonResponse
+    {
+        return $this->json([
+            'Id' => $nurse->getId(),
+            'Name' => $nurse->getName(),
+            'Mail' => $nurse->getGmail(),
+        ], Response::HTTP_OK);
+    }
 
     //         return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
     //     }
@@ -73,8 +81,10 @@ final class CrudController extends AbstractController
     #[Route('/{id}', name: 'app_crud_delete', methods: ['DELETE'])]
     public function delete(Request $request, Nurse $nurse, EntityManagerInterface $entityManager): Response
     {
-        
-
+        if ($this->isCsrfTokenValid('delete' . $nurse->getId(), $request->getPayload()->getString('_token'))) {
+            $entityManager->remove($nurse);
+            $entityManager->flush();
+        }
         return $this->json(false);
     }
 }
