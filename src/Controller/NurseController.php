@@ -79,7 +79,7 @@ class NurseController extends AbstractController
         return $this->json([
             'Id' => $nurse->getId(),
             'Name' => $nurse->getName(),
-            'Mail' => $nurse->getGmail(),
+            'Gmail' => $nurse->getGmail(),
         ], Response::HTTP_OK);
     }
 
