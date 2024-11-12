@@ -99,20 +99,20 @@ class NurseController extends AbstractController
     #[Route('/create', name: 'app_crud_create', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
     {
-        $id = $request->request->get('id');
+        // $id = $request->request->get('id');
         $name = $request->request->get('name');
         $gmail = $request->request->get('gmail');
         $password = $request->request->get('password');
 
-        if (is_null($id) || is_null($name) || is_null($gmail) || is_null($password)) {
+        if (/*is_null($id) || */is_null($name) || is_null($gmail) || is_null($password)) {
             return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
         }
 
-        if ($nurseRepository->findOneBy(['id' => $id])) {
-            return $this->json(['Already exist'], status: Response::HTTP_BAD_REQUEST);
-        } else {
+        // if ($nurseRepository->findOneBy(['id' => $id])) {
+        //     return $this->json(['Already exist'], status: Response::HTTP_BAD_REQUEST);
+        // } else {
             $nurse = new Nurse();
-            $nurse->setId($id);
+            // $nurse->setId($id);
             $nurse->setName($name);
             $nurse->setGmail($gmail);
             $nurse->setPassword($password);
@@ -121,6 +121,6 @@ class NurseController extends AbstractController
             $entityManager->flush();
 
             return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
-        }
+        // }
     }
 }
