@@ -123,4 +123,36 @@ class NurseController extends AbstractController
             return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
         // }
     }
+    #[Route('/update', name: 'app_crud_update', methods: ['PUT'])]
+    public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
+    {
+    
+    
+    $id = $request->query->get('id') ;
+    $name = $request->query->get('name');
+    $gmail = $request->query->get('gmail');
+    $password = $request->query->get('password');
+
+ 
+    if (is_null($id) || is_null($name) || is_null($gmail) || is_null($password)) {
+        return $this->json(['message' => 'Missing parameters'], status: Response::HTTP_BAD_REQUEST);
+    }
+
+    $nurse = $nurseRepository->findOneBy(['id' => $id]);
+
+    if ($nurse) {
+        // Si existe, actualiza los campos necesarios
+        $nurse->setName($name);
+        $nurse->setGmail($gmail);
+        $nurse->setPassword($password);
+
+        // Persiste los cambios en la base de datos
+        $entityManager->flush();
+
+        return $this->json(['message' => 'Nurse updated successfully'], status: Response::HTTP_OK);
+    } else {
+        // Si no existe, se devuelve un error 404
+        return $this->json(['message' => 'Nurse not found'], status: Response::HTTP_NOT_FOUND);
+    }
+    }
 }
