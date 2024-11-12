@@ -2,4 +2,3 @@
 <li>David Ortet</li>
 <li>Marc Pla</li>
 <li>Antonio Herrero</li>
-## ALABAU
