@@ -75,15 +75,14 @@ class NurseController extends AbstractController
         return $this->json(false);
     }
     #[Route('/update', name: 'app_crud_update', methods: ['PUT'])]
-    public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): Response
+    public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
     {
     
-    $data = $request->toArray();
     
-    $id = $data['id'] ?? null;
-    $name = $data['name'] ?? null;
-    $gmail = $data['gmail'] ?? null;
-    $password = $data['password'] ?? null;
+    $id = $request->query->get('id') ;
+    $name = $request->query->get('name');
+    $gmail = $request->query->get('gmail');
+    $password = $request->query->get('password');
 
  
     if (is_null($id) || is_null($name) || is_null($gmail) || is_null($password)) {
