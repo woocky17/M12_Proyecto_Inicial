@@ -17,32 +17,52 @@ This project is a Nurse Management API built with Symfony, providing CRUD (Creat
 For the **database management** and object-relational mapping (**ORM**), we are going to use a set of libraries and tools called **Doctrine** that offers multiple benefits like:
 
 > **Database Abstraction**
->> Doctrine provides a layer of abstraction that allows you to interact with the database without writing SQL queries directly.
+>
+> > Doctrine provides a layer of abstraction that allows you to interact with the database without writing SQL queries directly.
 
 > **Migrations**
->> Includes a migration system that helps manage changes to the database structure in a controlled manner for keeping the database in sync with the data model as the application changes.
+>
+> > Includes a migration system that helps manage changes to the database structure in a controlled manner for keeping the database in sync with the data model as the application changes.
 
 > **Validation and Business Rules**
->> We can define validation and business logic in our entity, ensuring that data is consistent and valid before being persisted to the database.
+>
+> > We can define validation and business logic in our entity, ensuring that data is consistent and valid before being persisted to the database.
 
 > **Unit testing**
->> Using Doctrine allows for more effective unit testing, as we can mock database interactions and test our app's logic in isolation.
+>
+> > Using Doctrine allows for more effective unit testing, as we can mock database interactions and test our app's logic in isolation.
 
 In summary, implementing a CRUD with Doctrine not only simplifies database management but also improves code quality, facilitates maintenance and allows for better data handling in our app.
 
 ## Installation
 
-Clone the Repository: To clone the repository, use the following command in your terminal:
-git clone https://github.com/woocky17/M12_Proyecto_Inicial
+1. **Clone the Repository:**  
+   To clone the repository, use the following command in your terminal:
 
-Install Dependencies: After cloning the repository, navigate to the project directory and install the required dependencies using Composer:
-composer install
+   ```bash
+   git clone https://github.com/woocky17/M12_Proyecto_Inicial
 
-Migrate the Database: If you have a database configured, run the following commands to create and migrate the database schema:
-php bin/console doctrine:migrations:migrate
+   ```
 
-Start the Symfony Server: You can start the Symfony local server with the following command:
-symfony server:start
+2. **Install Dependencies:**  
+    After cloning the repository, navigate to the project directory and install the required dependencies using Composer:
+
+   ```bash
+   composer install
+
+   ```
+
+3. **Migrate the Database**
+
+    If you have a database configured, run the following command to create and migrate the database schema:
+    ```bash
+    php bin/console doctrine:migrations:migrate
+
+4. **Start the Symfony Server**
+
+    You can start the Symfony local server with the following command:
+    ```bash
+    symfony server:start
 
 
 
@@ -60,3 +80,4 @@ http://127.0.0.1:8000/NurseController/1
 
 
 Readme documentation: [Basic Syntax](https://www.markdownguide.org/basic-syntax/#overview).
+```
