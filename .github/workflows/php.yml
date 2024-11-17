@@ -29,10 +29,10 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-php-
 
-    # - name: Install dependencies
-    #   run: composer install  
-    - name: Install dependencies (without cache)
-      run: composer install --no-cache
+    - name: Update dependencies
+      run: composer update  
+    - name: Install dependencies
+      run: composer install  
     - name: Run tests
       run: composer test
 
