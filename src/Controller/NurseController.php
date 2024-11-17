@@ -46,7 +46,6 @@ class NurseController extends AbstractController
                 'id' => $nurse->getId(),
                 'name' => $nurse->getName(),
                 'gmail' => $nurse->getGmail(),
-                // No incluimos la contraseña por razones de seguridad
             ];
         }, $nurses);
 
