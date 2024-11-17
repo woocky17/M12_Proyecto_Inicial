@@ -154,4 +154,5 @@ class NurseController extends AbstractController
         return $this->json(['message' => 'Nurse not found'], status: Response::HTTP_NOT_FOUND);
     }
     }
+    
 }
