@@ -57,15 +57,14 @@ In summary, implementing a CRUD with Doctrine not only simplifies database manag
     If you have a database configured, run the following command to create and migrate the database schema:
     ```bash
     php bin/console doctrine:migrations:migrate
-
+    ```
 4. **Start the Symfony Server**
 
     You can start the Symfony local server with the following command:
     ```bash
     symfony server:start
-
-
-
+    ```
+    
 ## Implementation and functionality
 The project provides several API endpoints for managing nurse data:
 
@@ -80,4 +79,4 @@ http://127.0.0.1:8000/NurseController/1
 
 
 Readme documentation: [Basic Syntax](https://www.markdownguide.org/basic-syntax/#overview).
-```
+
