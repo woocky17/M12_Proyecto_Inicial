@@ -1,4 +1,4 @@
-# Pr05 Back-end CRUD
+# "Nurse Management with CRUD in Symfony"
 
 Project installation and use
 
@@ -8,7 +8,7 @@ Project installation and use
 
 ## Brief description
 
-In this practice we implement the **CRUD** on the already created entity **Nurse** following this example:
+This project is a Nurse Management API built with Symfony, providing CRUD (Create, Read, Update, Delete) operations for managing nurse data. It allows users to create, update, retrieve, and delete nurse records, as well as perform nurse login verification via API endpoints.
 
 ![CRUD](https://media.licdn.com/dms/image/D4E12AQEs6G5nlBeiSg/article-cover_image-shrink_600_2000/0/1700011947400?e=2147483647&v=beta&t=ce2K9k-QgyoJZVdpxZJPsDjjex5nG_odjJEp1B0qRSY)
 
@@ -32,6 +32,31 @@ In summary, implementing a CRUD with Doctrine not only simplifies database manag
 
 ## Installation
 
+Clone the Repository: To clone the repository, use the following command in your terminal:
+git clone https://github.com/woocky17/M12_Proyecto_Inicial
+
+Install Dependencies: After cloning the repository, navigate to the project directory and install the required dependencies using Composer:
+composer install
+
+Migrate the Database: If you have a database configured, run the following commands to create and migrate the database schema:
+php bin/console doctrine:migrations:migrate
+
+Start the Symfony Server: You can start the Symfony local server with the following command:
+symfony server:start
+
+
+
 ## Implementation and functionality
+The project provides several API endpoints for managing nurse data:
+
+
+Get All Nurses
+http://127.0.0.1:8000/NurseController/nurse
+
+Get Nurse by ID
+http://127.0.0.1:8000/NurseController/1
+
+
+
 
 Readme documentation: [Basic Syntax](https://www.markdownguide.org/basic-syntax/#overview).
