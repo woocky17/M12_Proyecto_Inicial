@@ -1,6 +1,6 @@
 # "Nurse Management with CRUD in Symfony"
 
-Project installation and use
+Project created by
 
 > - David Ortet
 > - Marc Pla
@@ -64,7 +64,7 @@ In summary, implementing a CRUD with Doctrine not only simplifies database manag
     ```bash
     symfony server:start
     ```
-    
+
 ## Implementation and functionality
 The project provides several API endpoints for managing nurse data:
 
