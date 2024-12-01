@@ -6,12 +6,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {GetAllComponent} from './get-all/get-all.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FindNurseComponent } from './find-nurse/find-nurse.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     GetAllComponent
+    FindNurseComponent
   ],
   imports: [
     BrowserModule,
