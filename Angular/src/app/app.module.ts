@@ -12,7 +12,7 @@ import { FindNurseComponent } from './find-nurse/find-nurse.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    GetAllComponent
+    GetAllComponent,
     FindNurseComponent
   ],
   imports: [
