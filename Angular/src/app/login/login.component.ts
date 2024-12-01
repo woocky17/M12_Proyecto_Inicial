@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import jsonData from '../DATA/DATA.json';
+import jsonData from '../data/data.json';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
