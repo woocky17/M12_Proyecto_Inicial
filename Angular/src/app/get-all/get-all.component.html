@@ -1,0 +1,22 @@
+<div class="container">
+    <h1>Nurses Data</h1>
+    <table *ngIf="nurses.length > 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Password</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let nurse of nurses">
+          <td>{{ nurse.id }}</td>
+          <td>{{ nurse.name }}</td>
+          <td>{{ nurse.pwd }}</td>
+          <td>{{ nurse.gmail }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
