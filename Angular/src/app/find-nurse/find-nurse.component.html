@@ -1,0 +1,25 @@
+<div class="container bg-dark bg-gradient text-white pb-4 pt-4">
+    <h1 class="text-center pb-3">Find Nurse</h1>
+    <div class="container d-flex w-50">
+        <p>Name:</p>
+        <input class="mx-3" type="text" name="name" id="name" #nameInput>
+        <input class="mx-3" type="submit" name="buscar" value="Buscar" (click)="findNurse()" />
+    </div>
+    <hr>
+    <div class="container w-50 mx-auto">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Gmail</th>
+                </tr>
+                <tr>
+                    <th #nurseId></th>
+                    <th #nurseName></th>
+                    <th #nurseGmail></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
