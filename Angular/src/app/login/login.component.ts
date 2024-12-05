@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import jsonData from '../data/data.json';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +10,9 @@ import { FormControl, FormGroup } from '@angular/forms';
 })
 export class LoginComponent {
 nurses:Nurse[] = jsonData;
+constructor(private _router:Router,
+  private _activRoute: ActivatedRoute){}
+
 
 form = new FormGroup ({
 gmail: new FormControl(''),
@@ -32,6 +36,8 @@ login (){
 
     if (nurse) {
       alert(`Welcome, ${nurse.name}!`);
+      this._router.navigate(['/findOne']);
+      this._router.navigate(['/getAll']);
     } else {
       alert('Invalid Gmail or Password');
     }

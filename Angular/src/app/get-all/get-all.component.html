@@ -1,5 +1,5 @@
-<div class="container">
-    <h1>Nurses Data</h1>
+<div class="container bg-dark bg-gradient">
+    <h1 class="text-white">Nurses Data</h1>
     <table *ngIf="nurses.length > 0">
       <thead>
         <tr>
@@ -18,5 +18,7 @@
         </tr>
       </tbody>
     </table>
+    <button class="my-3" [routerLink]="['/findOne']">Find One</button>
+    <button class="my-3 mx-3" [routerLink]="['/']">HOME</button>
   </div>
   

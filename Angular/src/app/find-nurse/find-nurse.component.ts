@@ -16,16 +16,16 @@ export class FindNurseComponent implements AfterViewInit {
   }
 
   nurses = [{
-    id: 1, name: 'Nurse1', gmail: 'nurse1@gmail.com', password: '123456'
+    id: 1, name: 'nurse1', gmail: 'nurse1@gmail.com', password: '123456'
   }, {
-    id: 2, name: 'Nurse2', gmail: 'nurse2@gmail.com', password: '123456'
+    id: 2, name: 'nurse2', gmail: 'nurse2@gmail.com', password: '123456'
   }];
 
   findNurse() {
-    const inputName = this.NurseName.nativeElement.value;
+    const inputName = this.NurseName.nativeElement.value.toLowerCase();
     let found = false;
     for (let nurse of this.nurses) {
-      if (inputName === nurse.name) {
+      if (inputName === nurse.name.toLowerCase()) {
         this.showNurseId.nativeElement.innerHTML = nurse.id.toString();
         this.showNurseName.nativeElement.innerHTML = nurse.name;
         this.showNurseGmail.nativeElement.innerHTML = nurse.gmail;

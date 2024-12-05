@@ -1,5 +1,5 @@
-<div class="form-container">
-    <h2>Login</h2>
+<div class="form-container container bg-dark bg-gradient">
+    <h2 class="text-white">Login</h2>
     <form [formGroup]="form" (ngSubmit)="login()">
       <label for="gmail">Gmail</label>
       <input
@@ -20,5 +20,7 @@
       />
 
       <button type="submit">Login</button>
+      <hr>
+      <button type="button" class="btn btn-info" id="register">Sign up</button>
     </form>
   </div>

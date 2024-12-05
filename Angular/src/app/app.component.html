@@ -1,10 +1,11 @@
-<div>
-  <p>{{title}}</p>
-  <p>{{somos}}</p>
+<div class="container">
+  <div class="d-flex justify-content-center my-4">
+    <h1>{{title}}</h1>
+    <p class="mx-5 align-self-end">{{somos}}</p>
+  </div>
+  <!-- <app-login></app-login> -->
+  <!-- <button id="getAll" (click)="redirigirgetAll()">All nurses</button>
+  <button id="login" (click)="redirigirLogin()">Login</button>
+  <button id="findOne" (click)="redirigirfindOne()">Find nurse</button> -->
 </div>
-
-<button id="getAll" (click)="redirigirgetAll()">getAll</button>
-<button id="login" (click)="redirigirLogin()">Login</button>
-<button id="findOne" (click)="redirigirfindOne()">findOne</button>
-
 <router-outlet />

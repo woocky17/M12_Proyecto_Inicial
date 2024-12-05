@@ -7,7 +7,8 @@ import { FindNurseComponent } from './find-nurse/find-nurse.component';
 const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'findOne', component:FindNurseComponent},
-  {path:'getAll', component:GetAllComponent}
+  {path:'getAll', component:GetAllComponent},
+  {path:'', component:LoginComponent}
 ];
 
 @NgModule({
