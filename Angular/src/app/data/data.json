@@ -4,6 +4,12 @@
         "name":"david",
         "pwd":"1234",
         "gmail":"david@gmail.com"
-
+    },
+    {
+        "id":"2",
+        "name":"alabau",
+        "pwd":"sparkin1",
+        "gmail":"goku_instinto@yahoo.es"
     }
+
 ]

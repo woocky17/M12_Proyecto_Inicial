@@ -1,11 +1,15 @@
 import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import jsonData from '../data/data.json';
 
 @Component({
   selector: 'app-find-nurse',
   templateUrl: './find-nurse.component.html',
   styleUrl: './find-nurse.component.css'
 })
+
 export class FindNurseComponent implements AfterViewInit {
+
+  nurses: Nurse[] = jsonData;
   @ViewChild("nameInput", { static: true }) NurseName!: ElementRef;
   @ViewChild("nurseName", { static: false }) showNurseName!: ElementRef;
   @ViewChild("nurseId", { static: false }) showNurseId!: ElementRef;
@@ -14,12 +18,6 @@ export class FindNurseComponent implements AfterViewInit {
   ngAfterViewInit() {
     this.NurseName.nativeElement.value = '';
   }
-
-  nurses = [{
-    id: 1, name: 'nurse1', gmail: 'nurse1@gmail.com', password: '123456'
-  }, {
-    id: 2, name: 'nurse2', gmail: 'nurse2@gmail.com', password: '123456'
-  }];
 
   findNurse() {
     const inputName = this.NurseName.nativeElement.value.toLowerCase();
@@ -39,4 +37,11 @@ export class FindNurseComponent implements AfterViewInit {
       this.showNurseGmail.nativeElement.innerHTML = '';
     }
   }
+}
+
+class Nurse {
+  id: string = '';
+  name: string = '';
+  pwd: string = '';
+  gmail: string = '';
 }
