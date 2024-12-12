@@ -7,13 +7,15 @@ import { LoginComponent } from './login/login.component';
 import {GetAllComponent} from './get-all/get-all.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FindNurseComponent } from './find-nurse/find-nurse.component';
+import { SignInComponent } from './sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     GetAllComponent,
-    FindNurseComponent
+    FindNurseComponent,
+    SignInComponent
   ],
   imports: [
     BrowserModule,
