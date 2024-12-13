@@ -5,14 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class nurseService {
-    @ViewChild("nameInput", { static: true }) NurseName!: ElementRef;
-    @ViewChild("nurseName", { static: false }) showNurseName!: ElementRef;
-    @ViewChild("nurseId", { static: false }) showNurseId!: ElementRef;
-    @ViewChild("nurseGmail", { static: false }) showNurseGmail!: ElementRef;
-    ngAfterViewInit() {
-        this.NurseName.nativeElement.value = '';
-    }
     nurses: Nurse[] = jsonData;
+
     constructor(private _router: Router,
         private _activRoute: ActivatedRoute) { }
 
@@ -40,24 +34,12 @@ export class nurseService {
             alert('Invalid Gmail or Password');
         }
     }
-    findNurse() {
-
-        const inputName = this.NurseName.nativeElement.value.toLowerCase();
-        let found = false;
-        for (let nurse of this.nurses) {
-            if (inputName === nurse.name.toLowerCase()) {
-                this.showNurseId.nativeElement.innerHTML = nurse.id.toString();
-                this.showNurseName.nativeElement.innerHTML = nurse.name;
-                this.showNurseGmail.nativeElement.innerHTML = nurse.gmail;
-                found = true;
-                break;
-            }
-        }
-        if (!found) {
-            this.showNurseId.nativeElement.innerText = "Not found!";
-            this.showNurseName.nativeElement.innerHTML = '';
-            this.showNurseGmail.nativeElement.innerHTML = '';
-        }
+    // findNurse(inputName: string): Nurse | null {
+    //     let nurse = this.nurses.find(n => n.name.toLocaleLowerCase() == inputName.toLowerCase());
+    //     return nurse || null;
+    // }
+    findNurse(inputName: string): Nurse[] {
+        return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());
     }
 }
 class Nurse {
