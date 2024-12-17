@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, ViewChild, ElementRef } from '@angular/core';
 import jsonData from '../data/data.json';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Injectable()
 export class nurseService {
     nurses: Nurse[] = jsonData;
+
     constructor(private _router: Router,
         private _activRoute: ActivatedRoute) { }
 
@@ -32,6 +33,13 @@ export class nurseService {
         } else {
             alert('Invalid Gmail or Password');
         }
+    }
+    // findNurse(inputName: string): Nurse | null {
+    //     let nurse = this.nurses.find(n => n.name.toLocaleLowerCase() == inputName.toLowerCase());
+    //     return nurse || null;
+    // }
+    findNurse(inputName: string): Nurse[] {
+        return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());
     }
 }
 class Nurse {
