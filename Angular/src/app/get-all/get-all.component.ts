@@ -7,7 +7,7 @@ import jsonData from '../data/data.json';
   styleUrl: './get-all.component.css'
 })
 export class GetAllComponent {
-  nurses: Nurse[] = jsonData;
+
 
 
 
