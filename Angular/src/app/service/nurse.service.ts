@@ -1,4 +1,4 @@
-import { Injectable, ViewChild, ElementRef } from '@angular/core';
+import { Injectable, ViewChild, ElementRef, Component } from '@angular/core';
 import jsonData from '../data/data.json';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -34,10 +34,9 @@ export class nurseService {
             alert('Invalid Gmail or Password');
         }
     }
-    // findNurse(inputName: string): Nurse | null {
-    //     let nurse = this.nurses.find(n => n.name.toLocaleLowerCase() == inputName.toLowerCase());
-    //     return nurse || null;
-    // }
+    getAll(): Nurse[] {
+        return this.nurses;
+    }
     findNurse(inputName: string): Nurse[] {
         return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());
     }

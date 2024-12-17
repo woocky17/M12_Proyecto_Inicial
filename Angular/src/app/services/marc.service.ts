@@ -6,12 +6,7 @@ import { Component } from '@angular/core';
 
 @Injectable()
 export class nurseService {
-    nurses: Nurse[] = jsonData;
-
-    getAll(): Nurse[] {
-
-        return this.nurses;
-    }
+   
 }
 
 class Nurse {
