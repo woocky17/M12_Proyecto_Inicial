@@ -1,24 +1,24 @@
 <div class="container bg-dark bg-gradient">
-    <h1 class="text-white">Nurses Data</h1>
-    <table *ngIf="nurses.length">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Password</th>
-          <th>Email</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let nurse of nurses">
-          <td>{{ nurse.id }}</td>
-          <td>{{ nurse.name }}</td>
-          <td>{{ nurse.pwd }}</td>
-          <td>{{ nurse.gmail }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <button class="my-3" [routerLink]="['/findOne']">Find One</button>
-    <button class="my-3 mx-3" [routerLink]="['/']">HOME</button>
-  </div>
-  
+  <h1 class="text-white">Nurses Data</h1>
+  <table *ngIf="nurses.length">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Password</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let nurse of nurses">
+        <td>{{ nurse.id }}</td>
+        <td>{{ nurse.name }}</td>
+        <td>{{ nurse.pwd }}</td>
+        <td>{{ nurse.gmail }}</td>
+        <td><img [src]="nurse.img" style="width: 100px; height: 100px;"></td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="my-3" [routerLink]="['/findOne']">Find One</button>
+  <button class="my-3 mx-3" [routerLink]="['/']">HOME</button>
+</div>

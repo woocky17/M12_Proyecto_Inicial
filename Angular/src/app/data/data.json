@@ -3,18 +3,21 @@
         "id":"1",
         "name":"david",
         "pwd":"1234",
-        "gmail":"david@gmail.com"
+        "gmail":"david@gmail.com",
+        "img":"profile1.png"
     },
     {
         "id":"2",
         "name":"alabau",
         "pwd":"sparkin1",
-        "gmail":"goku_instinto@yahoo.es"
+        "gmail":"goku_instinto@yahoo.es",
+        "img":"profile2.png"
     },
     {
         "id":"3",
         "name":"alabau",
         "pwd":"sparkin2",
-        "gmail":"goku_ultra_instinto@yahoo.es"
+        "gmail":"goku_ultra_instinto@yahoo.es",
+        "img":"profile3.png"
     }
 ]
