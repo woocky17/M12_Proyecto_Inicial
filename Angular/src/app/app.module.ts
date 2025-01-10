@@ -4,10 +4,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {GetAllComponent} from './get-all/get-all.component';
+import { GetAllComponent } from './get-all/get-all.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FindNurseComponent } from './find-nurse/find-nurse.component';
 import { SignInComponent } from './sign-in/sign-in.component';
+import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,9 @@ import { SignInComponent } from './sign-in/sign-in.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    provideHttpClient(withFetch())
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
