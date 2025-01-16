@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { nurseService } from '../service/nurse.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +8,21 @@ import { nurseService } from '../service/nurse.service';
   styleUrl: './login.component.css',
   providers: [nurseService]
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   constructor(private nurseService: nurseService) { }
-  login() {
-    this.nurseService.login();
+
+  // nurses: Nurse[] = jsonData;
+  nurses: (<Nurse>() => []) | null = null;
+  ngOnInit() {
+    this.nurseService.getAll()
+      .subscribe(data => {
+        console.log(data)
+      });
   }
-  get form() {
-    return this.nurseService.form;
-  }
+  // login() {
+  //   this.nurseService.login();
+  // }
+  // get form() {
+  //   return this.nurseService.form;
+  // }
 }

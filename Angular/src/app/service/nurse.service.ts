@@ -2,13 +2,16 @@ import { Injectable, ViewChild, ElementRef, Component } from '@angular/core';
 import jsonData from '../data/data.json';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class nurseService {
     nurses: Nurse[] = jsonData;
 
-    constructor(private _router: Router,
-        private _activRoute: ActivatedRoute) { }
+    constructor(private conexHttp: HttpClient,
+        private router: Router,
+        private activatedRoute: ActivatedRoute) { };
 
     form = new FormGroup({
         gmail: new FormControl(''),
@@ -28,14 +31,19 @@ export class nurseService {
 
         if (nurse) {
             alert(`Welcome, ${nurse.name}!`);
-            this._router.navigate(['/findOne']);
-            this._router.navigate(['/getAll']);
+            this.router.navigate(['/findOne']);
+            this.router.navigate(['/getAll']);
         } else {
             alert('Invalid Gmail or Password');
         }
     }
-    getAll(): Nurse[] {
-        return this.nurses;
+    getAll(): Observable<any> {
+        let url = "http://127.0.0.1:8000/NurseController/nurse";
+        return this.conexHttp.get(url,
+            { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+        );
+        //  return this.nurses;
+        // nurses: Nurse[] = jsonData;
     }
     findNurse(inputName: string): Nurse[] {
         return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());

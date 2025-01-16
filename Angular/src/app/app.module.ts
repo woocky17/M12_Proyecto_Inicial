@@ -8,7 +8,7 @@ import { GetAllComponent } from './get-all/get-all.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FindNurseComponent } from './find-nurse/find-nurse.component';
 import { SignInComponent } from './sign-in/sign-in.component';
-import { HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 
 @NgModule({
   declarations: [
