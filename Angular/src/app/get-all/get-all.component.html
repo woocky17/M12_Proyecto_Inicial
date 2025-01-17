@@ -5,7 +5,6 @@
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Password</th>
         <th>Email</th>
       </tr>
     </thead>
@@ -13,9 +12,8 @@
       <tr *ngFor="let nurse of nurses">
         <td>{{ nurse.id }}</td>
         <td>{{ nurse.name }}</td>
-        <td>{{ nurse.pwd }}</td>
         <td>{{ nurse.gmail }}</td>
-        <td><img [src]="nurse.img" style="width: 100px; height: 100px;"></td>
+        <!-- <td><img [src]="nurse.img" style="width: 100px; height: 100px;"></td> -->
       </tr>
     </tbody>
   </table>
