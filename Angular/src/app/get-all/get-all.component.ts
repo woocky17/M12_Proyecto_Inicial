@@ -18,7 +18,11 @@ export class GetAllComponent {
   }
 
   getAll() {
-    this.nurses = this.nurseService.getAll();
+    this.nurseService.getAll().subscribe(
+      (data: Nurse[]) => {
+        this.nurses = data;
+      }
+    )
   }
 }
 

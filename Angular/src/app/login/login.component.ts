@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
         console.log(data)
       });
   }
-  // login() {
-  //   this.nurseService.login();
-  // }
-  // get form() {
-  //   return this.nurseService.form;
-  // }
+  login() {
+    this.nurseService.login();
+  }
+  get form() {
+    return this.nurseService.form;
+  }
 }

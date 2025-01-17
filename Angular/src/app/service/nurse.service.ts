@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 export class nurseService {
     nurses: Nurse[] = jsonData;
 
+    
     constructor(private conexHttp: HttpClient,
         private router: Router,
         private activatedRoute: ActivatedRoute) { };
@@ -37,9 +38,9 @@ export class nurseService {
             alert('Invalid Gmail or Password');
         }
     }
-    getAll(): Observable<any> {
+    getAll(): Observable<Nurse[]> {
         let url = "http://127.0.0.1:8000/NurseController/nurse";
-        return this.conexHttp.get(url,
+        return this.conexHttp.get<Nurse[]>(url,
             { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
         );
         //  return this.nurses;

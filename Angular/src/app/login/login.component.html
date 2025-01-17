@@ -1,6 +1,6 @@
 <div class="form-container container bg-dark bg-gradient">
     <h2 class="text-white">Login</h2>
-    <form (ngSubmit)="ngOnInit()">
+    <form [formGroup]="form" (ngSubmit)="login()">
       <label for="gmail">Gmail</label>
       <input
         type="email"
