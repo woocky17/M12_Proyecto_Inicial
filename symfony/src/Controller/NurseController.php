@@ -60,17 +60,16 @@ class NurseController extends AbstractController
         $password = $request->request->get('password');
 
         if (is_null($gmail) || is_null($password)) {
-            return $this->json(['Missing parameters'], Response::HTTP_BAD_REQUEST);
+            return $this->json(['error' => 'Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
         $nurse = $nurseRepository->findOneBy(['gmail' => $gmail]);
 
         if ($nurse && $nurse->getPassword() === $password) {
-            return $this->json(true, Response::HTTP_OK);
+            return $this->json(['succcess' => true], Response::HTTP_OK);
         }
 
-        //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
-        return $this->json(false, Response::HTTP_BAD_REQUEST);
+        return $this->json(['error' => 'Invalid credentials'], Response::HTTP_BAD_REQUEST);
     }
     #[Route('/{id}', name: 'findById', methods: ['GET'])]
     public function show(Nurse $nurse): JsonResponse
@@ -103,56 +102,56 @@ class NurseController extends AbstractController
         $gmail = $request->request->get('gmail');
         $password = $request->request->get('password');
 
-        if (/*is_null($id) || */is_null($name) || is_null($gmail) || is_null($password)) {
+        if (/*is_null($id) || */ is_null($name) || is_null($gmail) || is_null($password)) {
             return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
         }
 
         // if ($nurseRepository->findOneBy(['id' => $id])) {
         //     return $this->json(['Already exist'], status: Response::HTTP_BAD_REQUEST);
         // } else {
-            $nurse = new Nurse();
-            // $nurse->setId($id);
-            $nurse->setName($name);
-            $nurse->setGmail($gmail);
-            $nurse->setPassword($password);
+        $nurse = new Nurse();
+        // $nurse->setId($id);
+        $nurse->setName($name);
+        $nurse->setGmail($gmail);
+        $nurse->setPassword($password);
 
-            $entityManager->persist($nurse);
-            $entityManager->flush();
+        $entityManager->persist($nurse);
+        $entityManager->flush();
 
-            return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
+        return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
         // }
     }
     #[Route('/update', name: 'app_crud_update', methods: ['PUT'])]
     public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
     {
-    
-    
-    $id = $request->query->get('id') ;
-    $name = $request->query->get('name');
-    $gmail = $request->query->get('gmail');
-    $password = $request->query->get('password');
 
- 
-    if (is_null($id) || is_null($name) || is_null($gmail) || is_null($password)) {
-        return $this->json(['message' => 'Missing parameters'], status: Response::HTTP_BAD_REQUEST);
+
+        $id = $request->query->get('id');
+        $name = $request->query->get('name');
+        $gmail = $request->query->get('gmail');
+        $password = $request->query->get('password');
+
+
+        if (is_null($id) || is_null($name) || is_null($gmail) || is_null($password)) {
+            return $this->json(['message' => 'Missing parameters'], status: Response::HTTP_BAD_REQUEST);
+        }
+
+        $nurse = $nurseRepository->findOneBy(['id' => $id]);
+
+        if ($nurse) {
+            // Si existe, actualiza los campos necesarios
+            $nurse->setName($name);
+            $nurse->setGmail($gmail);
+            $nurse->setPassword($password);
+
+            // Persiste los cambios en la base de datos
+            $entityManager->flush();
+
+            return $this->json(['message' => 'Nurse updated successfully'], status: Response::HTTP_OK);
+        } else {
+            // Si no existe, se devuelve un error 404
+            return $this->json(['message' => 'Nurse not found'], status: Response::HTTP_NOT_FOUND);
+        }
     }
 
-    $nurse = $nurseRepository->findOneBy(['id' => $id]);
-
-    if ($nurse) {
-        // Si existe, actualiza los campos necesarios
-        $nurse->setName($name);
-        $nurse->setGmail($gmail);
-        $nurse->setPassword($password);
-
-        // Persiste los cambios en la base de datos
-        $entityManager->flush();
-
-        return $this->json(['message' => 'Nurse updated successfully'], status: Response::HTTP_OK);
-    } else {
-        // Si no existe, se devuelve un error 404
-        return $this->json(['message' => 'Nurse not found'], status: Response::HTTP_NOT_FOUND);
-    }
-    }
-    
 }

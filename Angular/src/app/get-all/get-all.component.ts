@@ -31,5 +31,4 @@ class Nurse {
   name: string = '';
   pwd: string = '';
   gmail: string = '';
-  img: string = '';
 } 

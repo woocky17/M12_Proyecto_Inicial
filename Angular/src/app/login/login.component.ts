@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { nurseService } from '../service/nurse.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Nurse } from '../model/nurse.model';
 
 @Component({
   selector: 'app-login',
@@ -12,17 +13,23 @@ export class LoginComponent implements OnInit {
   constructor(private nurseService: nurseService) { }
 
   // nurses: Nurse[] = jsonData;
-  nurses: (<Nurse>() => []) | null = null;
+  nurses: Array<Nurse> = [];
   ngOnInit() {
-    this.nurseService.getAll()
-      .subscribe(data => {
-        console.log(data)
+    this.nurseService.login(new Nurse())
+      .subscribe(result => {
+        this.nurses = result;
       });
   }
   login() {
-    this.nurseService.login();
+    this.nurseService.login(new Nurse());
   }
   get form() {
     return this.nurseService.form;
   }
+}
+class Nurse {
+  id: string = '';
+  name: string = '';
+  pwd: string = '';
+  gmail: string = '';
 }

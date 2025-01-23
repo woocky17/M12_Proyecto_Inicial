@@ -18,25 +18,11 @@ export class nurseService {
         gmail: new FormControl(''),
         pwd: new FormControl('')
     });
-    login() {
-        let value = this.form.value;
-
-        console.log('Form values:', value); // Muestra los valores ingresados
-        console.log('Nurses array:', this.nurses); // Muestra los datos cargados
-
-        const nurse = this.nurses.find(
-            (n) =>
-                n.gmail.toLowerCase() === value.gmail?.trim().toLowerCase() &&
-                n.pwd === value.pwd?.trim()
-        );
-
-        if (nurse) {
-            alert(`Welcome, ${nurse.name}!`);
-            this.router.navigate(['/findOne']);
-            this.router.navigate(['/getAll']);
-        } else {
-            alert('Invalid Gmail or Password');
-        }
+    login(nurse:Nurse):Observable<any> {
+        let url = "http://127.0.0.1:8000/NurseController/login";
+        return this.conexHttp.post(url, nurse,
+            {headers: new HttpHeaders({'Content-Type':'application/json'})}
+        )
     }
     getAll(): Observable<Nurse[]> {
         let url = "http://127.0.0.1:8000/NurseController/nurse";
