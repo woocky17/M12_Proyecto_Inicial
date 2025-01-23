@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class nurseService {
     nurses: Nurse[] = jsonData;
 
-    
+
     constructor(private conexHttp: HttpClient,
         private router: Router,
         private activatedRoute: ActivatedRoute) { };
@@ -43,8 +43,6 @@ export class nurseService {
         return this.conexHttp.get<Nurse[]>(url,
             { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
         );
-        //  return this.nurses;
-        // nurses: Nurse[] = jsonData;
     }
     findNurse(inputName: string): Nurse[] {
         return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());
@@ -55,5 +53,4 @@ class Nurse {
     name: string = '';
     pwd: string = '';
     gmail: string = '';
-    img: string = '';
 }
