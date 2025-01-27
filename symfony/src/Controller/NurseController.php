@@ -57,7 +57,8 @@ class NurseController extends AbstractController
     public function login(Request $request, NurseRepository $nurseRepository): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
     {
         $gmail = $request->request->get('gmail');
-        $password = $request->request->get('password');
+        $password = $request->request->get('pwd');
+        // $nurse_data = json_decode($request->request->get(key: 'nurse'));
 
         if (is_null($gmail) || is_null($password)) {
             return $this->json(['error' => 'Missing parameters'], Response::HTTP_BAD_REQUEST);
@@ -66,7 +67,7 @@ class NurseController extends AbstractController
         $nurse = $nurseRepository->findOneBy(['gmail' => $gmail]);
 
         if ($nurse && $nurse->getPassword() === $password) {
-            return $this->json(['succcess' => true], Response::HTTP_OK);
+            return $this->json(['success' => true], Response::HTTP_OK);
         }
 
         return $this->json(['error' => 'Invalid credentials'], Response::HTTP_BAD_REQUEST);
@@ -74,6 +75,7 @@ class NurseController extends AbstractController
     #[Route('/{id}', name: 'findById', methods: ['GET'])]
     public function show(Nurse $nurse): JsonResponse
     {
+
         return $this->json([
             'Id' => $nurse->getId(),
             'Name' => $nurse->getName(),

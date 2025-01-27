@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { nurseService } from '../service/nurse.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Nurse } from '../model/nurse.model';
-
+import { Nurse } from '../data/nurse';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -10,26 +10,37 @@ import { Nurse } from '../model/nurse.model';
   providers: [nurseService]
 })
 export class LoginComponent implements OnInit {
-  constructor(private nurseService: nurseService) { }
+  constructor(private nurseService: nurseService, private router: Router) { }
 
   // nurses: Nurse[] = jsonData;
   nurses: Array<Nurse> = [];
   ngOnInit() {
-    this.nurseService.login(new Nurse())
-      .subscribe(result => {
-        this.nurses = result;
-      });
+    // this.nurseService.login(new Nurse())
+    //   .subscribe(result => {
+    //     this.nurses = result;
+    //   });
   }
   login() {
-    this.nurseService.login(new Nurse());
+    console.log(this.form.value);
+    const { gmail, pwd } = this.form.value;
+    let nurse = new Nurse(gmail ?? "", pwd ?? "");
+    console.log(nurse);
+    console.log('HOLA');
+
+    this.nurseService.login(nurse)
+      .subscribe(result => {
+        this.nurses = result;
+        //verificar si hace el login correctamente
+        if (result && result.success) {
+          this.router.navigate(['/getAll']);
+        }
+        if (!result.success) {
+          alert('Error de autenticación');
+        }
+      });
   }
   get form() {
     return this.nurseService.form;
   }
 }
-class Nurse {
-  id: string = '';
-  name: string = '';
-  pwd: string = '';
-  gmail: string = '';
-}
+

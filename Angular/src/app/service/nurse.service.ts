@@ -4,6 +4,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Nurse } from '../data/nurse';
 
 @Injectable()
 export class nurseService {
@@ -20,9 +21,16 @@ export class nurseService {
     });
     login(nurse:Nurse):Observable<any> {
         let url = "http://127.0.0.1:8000/NurseController/login";
-        return this.conexHttp.post(url, nurse,
-            {headers: new HttpHeaders({'Content-Type':'application/json'})}
-        )
+        let formData = new FormData()
+        formData.append("gmail",nurse.gmail)
+        formData.append("pwd",nurse.pwd)
+        // formData.append("nurse",JSON.stringify(nurse))
+
+        return this.conexHttp.post(url,formData);
+        // return this.conexHttp.post(url, nurse,
+        //     {headers: new HttpHeaders({'Content-Type':'application/json'})}
+        // )
+        
     }
     getAll(): Observable<Nurse[]> {
         let url = "http://127.0.0.1:8000/NurseController/nurse";
@@ -33,10 +41,4 @@ export class nurseService {
     findNurse(inputName: string): Nurse[] {
         return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());
     }
-}
-class Nurse {
-    id: string = '';
-    name: string = '';
-    pwd: string = '';
-    gmail: string = '';
 }
