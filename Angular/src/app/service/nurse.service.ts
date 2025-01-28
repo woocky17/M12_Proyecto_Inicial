@@ -19,19 +19,16 @@ export class nurseService {
         gmail: new FormControl(''),
         pwd: new FormControl('')
     });
-    login(nurse:Nurse):Observable<any> {
+    login(nurse: Nurse): Observable<any> {
         let url = "http://127.0.0.1:8000/NurseController/login";
         let formData = new FormData()
         formData.append("gmail",nurse.gmail)
         formData.append("pwd",nurse.pwd)
-        // formData.append("nurse",JSON.stringify(nurse))
 
         return this.conexHttp.post(url,formData);
-        // return this.conexHttp.post(url, nurse,
-        //     {headers: new HttpHeaders({'Content-Type':'application/json'})}
-        // )
-        
+
     }
+    
     getAll(): Observable<Nurse[]> {
         let url = "http://127.0.0.1:8000/NurseController/nurse";
         return this.conexHttp.get<Nurse[]>(url,

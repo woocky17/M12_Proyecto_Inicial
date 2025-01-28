@@ -9,17 +9,11 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.css',
   providers: [nurseService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   constructor(private nurseService: nurseService, private router: Router) { }
 
   // nurses: Nurse[] = jsonData;
   nurses: Array<Nurse> = [];
-  ngOnInit() {
-    // this.nurseService.login(new Nurse())
-    //   .subscribe(result => {
-    //     this.nurses = result;
-    //   });
-  }
   login() {
     console.log(this.form.value);
     const { gmail, pwd } = this.form.value;
@@ -28,16 +22,21 @@ export class LoginComponent implements OnInit {
     console.log('HOLA');
 
     this.nurseService.login(nurse)
-      .subscribe(result => {
-        this.nurses = result;
-        //verificar si hace el login correctamente
-        if (result && result.success) {
-          this.router.navigate(['/getAll']);
-        }
-        if (!result.success) {
+      .subscribe(
+        result => {
+          this.nurses = result;
+          //verificar si hace el login correctamente
+          if (result && result.success) {
+            this.router.navigate(['/getAll']);
+          } else {
+            console.error('Error de autenticación');
+          }
+        },
+        error => {
+          console.error('Error en la solicitud', error);
           alert('Error de autenticación');
         }
-      });
+      );
   }
   get form() {
     return this.nurseService.form;
