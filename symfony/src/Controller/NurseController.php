@@ -103,13 +103,13 @@ class NurseController extends AbstractController
         $gmail = $request->request->get('gmail');
         $password = $request->request->get('password');
 
-<<<<<<< HEAD
+
         if (is_null($name) || is_null($gmail) || is_null($password)) {
             return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
         }
 
         $nurse = new Nurse();
-=======
+
         if (/*is_null($id) || */ is_null($name) || is_null($gmail) || is_null($password)) {
             return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
         }
@@ -119,7 +119,7 @@ class NurseController extends AbstractController
         // } else {
         $nurse = new Nurse();
         // $nurse->setId($id);
->>>>>>> 164e99f11b5a17d79f619318413e8e564e970a72
+
         $nurse->setName($name);
         $nurse->setGmail($gmail);
         $nurse->setPassword($password);
@@ -128,10 +128,9 @@ class NurseController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
-<<<<<<< HEAD
-=======
-        // }
->>>>>>> 164e99f11b5a17d79f619318413e8e564e970a72
+
+        
+
     }
     #[Route('/update', name: 'app_crud_update', methods: ['PUT'])]
     public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
