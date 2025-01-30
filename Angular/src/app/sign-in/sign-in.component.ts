@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { nurseService } from '../service/nurse.service';
 
 @Component({
   selector: 'app-sign-in',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.css'],
 })
 export class SignInComponent {
-  constructor() { }
+  constructor(private nurseService: nurseService) { }
+  signIn(){
+    this.nurseService.signIn();
+  }
+  get form() {
+    return this.nurseService.form;
+  }
 }

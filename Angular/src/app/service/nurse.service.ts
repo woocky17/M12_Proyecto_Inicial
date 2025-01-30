@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Injectable()
 export class nurseService {
+
     nurses: Nurse[] = jsonData;
 
     constructor(private _router: Router,
@@ -14,6 +15,27 @@ export class nurseService {
         gmail: new FormControl(''),
         pwd: new FormControl('')
     });
+
+    signIn() {
+        let value = this.form.value;
+        console.log('Form values:', value);
+        console.log('Nurses array:', this.nurses);
+
+        const nurse = this.nurses.find(
+            (n) =>
+                n.gmail.toLowerCase() === value.gmail?.trim().toLowerCase() &&
+                n.pwd === value.pwd?.trim()
+        );
+
+        if (nurse) {
+            alert(`Welcome, ${nurse.name}!`);
+            this._router.navigate(['/findOne']);
+            this._router.navigate(['/getAll']);
+        } else {
+            alert('Invalid Gmail or Password');
+        }
+    }
+
     login() {
         let value = this.form.value;
 
@@ -34,9 +56,11 @@ export class nurseService {
             alert('Invalid Gmail or Password');
         }
     }
+
     getAll(): Nurse[] {
         return this.nurses;
     }
+
     findNurse(inputName: string): Nurse[] {
         return this.nurses.filter(n => n.name.toLowerCase() == inputName.toLowerCase());
     }
