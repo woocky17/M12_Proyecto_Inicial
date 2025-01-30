@@ -105,21 +105,10 @@ class NurseController extends AbstractController
 
 
         if (is_null($name) || is_null($gmail) || is_null($password)) {
-            return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
+            return $this->json(['error' => 'Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
         $nurse = new Nurse();
-
-        if (/*is_null($id) || */ is_null($name) || is_null($gmail) || is_null($password)) {
-            return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
-        }
-
-        // if ($nurseRepository->findOneBy(['id' => $id])) {
-        //     return $this->json(['Already exist'], status: Response::HTTP_BAD_REQUEST);
-        // } else {
-        $nurse = new Nurse();
-        // $nurse->setId($id);
-
         $nurse->setName($name);
         $nurse->setGmail($gmail);
         $nurse->setPassword($password);
@@ -127,10 +116,7 @@ class NurseController extends AbstractController
         $entityManager->persist($nurse);
         $entityManager->flush();
 
-        return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
-
-        
-
+        return $this->json(['success' => true], status: Response::HTTP_CREATED);
     }
     #[Route('/update', name: 'app_crud_update', methods: ['PUT'])]
     public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
