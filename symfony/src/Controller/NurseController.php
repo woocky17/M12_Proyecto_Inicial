@@ -57,24 +57,25 @@ class NurseController extends AbstractController
     public function login(Request $request, NurseRepository $nurseRepository): JsonResponse //el obj Request representa la solicitud HTTP que llega a la ruta /login
     {
         $gmail = $request->request->get('gmail');
-        $password = $request->request->get('password');
+        $password = $request->request->get('pwd');
+        // $nurse_data = json_decode($request->request->get(key: 'nurse'));
 
         if (is_null($gmail) || is_null($password)) {
-            return $this->json(['Missing parameters'], Response::HTTP_BAD_REQUEST);
+            return $this->json(['error' => 'Missing parameters'], Response::HTTP_BAD_REQUEST);
         }
 
         $nurse = $nurseRepository->findOneBy(['gmail' => $gmail]);
 
         if ($nurse && $nurse->getPassword() === $password) {
-            return $this->json(true, Response::HTTP_OK);
+            return $this->json(['success' => true], Response::HTTP_OK);
         }
 
-        //return new JsonResponse(false); //FALTA PONER EL Response::HTTP_OK(ES IGUAL QUE PONER 200)
-        return $this->json(false, Response::HTTP_BAD_REQUEST);
+        return $this->json(['error' => 'Invalid credentials'], Response::HTTP_BAD_REQUEST);
     }
     #[Route('/{id}', name: 'findById', methods: ['GET'])]
     public function show(Nurse $nurse): JsonResponse
     {
+
         return $this->json([
             'Id' => $nurse->getId(),
             'Name' => $nurse->getName(),
@@ -102,11 +103,23 @@ class NurseController extends AbstractController
         $gmail = $request->request->get('gmail');
         $password = $request->request->get('password');
 
+<<<<<<< HEAD
         if (is_null($name) || is_null($gmail) || is_null($password)) {
             return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
         }
 
         $nurse = new Nurse();
+=======
+        if (/*is_null($id) || */ is_null($name) || is_null($gmail) || is_null($password)) {
+            return $this->json(['Missing parameters'], status: Response::HTTP_BAD_REQUEST);
+        }
+
+        // if ($nurseRepository->findOneBy(['id' => $id])) {
+        //     return $this->json(['Already exist'], status: Response::HTTP_BAD_REQUEST);
+        // } else {
+        $nurse = new Nurse();
+        // $nurse->setId($id);
+>>>>>>> 164e99f11b5a17d79f619318413e8e564e970a72
         $nurse->setName($name);
         $nurse->setGmail($gmail);
         $nurse->setPassword($password);
@@ -115,6 +128,10 @@ class NurseController extends AbstractController
         $entityManager->flush();
 
         return $this->json(['message' => 'Nurse created successfully'], status: Response::HTTP_CREATED);
+<<<<<<< HEAD
+=======
+        // }
+>>>>>>> 164e99f11b5a17d79f619318413e8e564e970a72
     }
     #[Route('/update', name: 'app_crud_update', methods: ['PUT'])]
     public function update(Request $request, EntityManagerInterface $entityManager, NurseRepository $nurseRepository): JsonResponse
