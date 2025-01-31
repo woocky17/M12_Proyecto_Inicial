@@ -101,7 +101,7 @@ class NurseController extends AbstractController
     {
         $name = $request->request->get('name');
         $gmail = $request->request->get('gmail');
-        $password = $request->request->get('password');
+        $password = $request->request->get('pwd');
 
 
         if (is_null($name) || is_null($gmail) || is_null($password)) {
